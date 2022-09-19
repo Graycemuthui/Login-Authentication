@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Authentication</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  </head>
+  <body>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyATNv1yLtMHppFhbBybh9t5VkFN42qWPBc",
+        authDomain: "login-authentication-5eb8b.firebaseapp.com",
+        databaseURL:
+          "https://login-authentication-5eb8b-default-rtdb.firebaseio.com",
+        projectId: "login-authentication-5eb8b",
+        storageBucket: "login-authentication-5eb8b.appspot.com",
+        messagingSenderId: "1094740287562",
+        appId: "1:1094740287562:web:46a3a6e0a9076f9e2806b3",
+        measurementId: "G-P8Z2FWJ6FT",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      import {
+        getDatabase,
+        ref,
+        set,
+        child,
+        get,
+      } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+
+      const db = getDatabase();
+    </script>
+  </body>
+</html>
