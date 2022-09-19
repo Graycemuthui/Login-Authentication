@@ -12,8 +12,51 @@
       crossorigin="anonymous"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="form">
+      <h2>SIGN UP</h2>
+      <div class="input-group flex d-flex justify-content-center mb-3">
+        <input
+          type="text"
+          placeholder="FullName"
+          id="nameInp"
+          class="form-control mb-3"
+        />
+      </div>
+      <div class="input-group flex d-flex justify-content-center mb-3">
+        <input
+          type="text"
+          placeholder="Email"
+          id="emailInp"
+          class="form-control mb-3"
+        />
+      </div>
+      <div class="input-group flex d-flex justify-content-center mb-3">
+        <input
+          type="text"
+          placeholder="Username"
+          id="userInp"
+          class="form-control mb-3"
+        />
+      </div>
+      <div class="input-group flex d-flex justify-content-center mb-3">
+        <input
+          type="text"
+          placeholder="Password"
+          id="passInp"
+          class="form-control mb-3"
+        />
+      </div>
+      <button type="button" id="sub_btn" class="btn w-100 btn-primary">
+        Sign Up
+      </button>
+      <a href="login.html" class="link-primary py-1 w-100"
+        >Already have an account</a
+      >
+    </div>
+
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
       import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
