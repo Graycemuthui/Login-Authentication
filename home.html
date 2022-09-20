@@ -47,22 +47,9 @@
               >
                 Dropdown
               </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
-            </li>
-          </ul>
           <form class="d-flex" role="search">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
+              <li class="nav-item ">
                 <a class="nav-link" id="userlink" aria-current="page" href=""
                   >Username</a
                 >
@@ -75,6 +62,59 @@
         </div>
       </div>
     </nav>
-    <script src="index.js"></script>
+
+    <h3 id="header"></h3>
+    <script>
+      let userLink = document.getElementById("userlink");
+      let signOutLink = document.getElementById("signoutlink");
+      let header = document.getElementById("header");
+      let currentUser = null;
+
+      const getUser = () => {
+        let keep = localStorage.getItem("keep");
+        if (keep == "yes") {
+          currentUser = JSON.parse(localStorage.getItem("user"));
+        } else {
+          currentUser = JSON.parse(sessionStorage.getItem("user"));
+        }
+      };
+
+      const signOut = () => {
+        localStorage.removeItem("user");
+        sessionStorage.removeItem("user");
+        localStorage.removeItem("keep");
+        window.location = "home.html";
+      };
+
+      // window loads
+      window.onload = () => {
+        getUser();
+        if (currentUser == null) {
+          userLink.innerHTML = "Create new account";
+          userLink.classList.replace("nav-link", "btn");
+          userLink.classList.add("btn-primary");
+          userLink.href = "index.html";
+
+          userLink.innerHTML = "Login";
+          userLink.classList.replace("nav-link", "btn");
+          userLink.classList.add("btn-success");
+          userLink.href = "#";
+        } else {
+          userLink.innerHTML = currentUser.username;
+          header.innerHTML = `Welcome ${currentUser.fullname}`;
+          userLink.classList.replace("btn", "nav-link");
+          userLink.classList.add("btn-primary");
+          userLink.href = "index.html";
+
+          signOutLink.innerHTML = "Sign Out";
+          signOutLink.classList.replace("btn", "nav-link");
+          signOutLink.classList.add("btn-success");
+          signOutLink.href = "JavaScript:signOut()";
+        }
+      };
+
+       // Assign the events
+      submit.addEventListener("click", register);
+    </script>
   </body>
 </html>

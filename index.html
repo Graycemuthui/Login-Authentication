@@ -94,10 +94,23 @@
       const pass = document.getElementById("passInp");
       const submit = document.getElementById("sub_btn");
 
-      function Validation() {
+      const isEmptyOrSpaces = (str) => {
+        return str === null || str.match(/^ *$/) !== null;
+      };
+      const Validation = () => {
         let nameregex = /^[a-zA-Z\s]+$/;
         let emailregex = /^[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$/;
         let userregex = /^[a-zA-Z0-9]+$/;
+
+        if (
+          isEmptyOrSpaces(name.value) ||
+          isEmptyOrSpaces(email.value) ||
+          isEmptyOrSpaces(username.value) ||
+          isEmptyOrSpaces(pass.value)
+        ) {
+          alert("Please fill all the fields");
+          return false;
+        }
 
         if (!nameregex.test(name.value)) {
           alert("The name should only contain alphabets");
@@ -112,10 +125,10 @@
           return false;
         }
         return true;
-      }
+      };
 
       // Register user to firebase
-      function register() {
+      const register = () => {
         if (!Validation()) {
           return;
         }
@@ -137,11 +150,11 @@
             });
           }
         });
-      }
+      };
       // encryption of the password
       function encPass() {
         // password returns a key and a value and only the user can decrypt it.
-        var pass12 = CryptoJS.AES.encrypt(pass.value, pass.value);
+        let pass12 = CryptoJS.AES.encrypt(pass.value, pass.value);
         return pass12.toString();
       }
       // Assign the events
