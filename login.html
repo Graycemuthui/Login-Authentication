@@ -82,6 +82,66 @@
       } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
 
       const db = getDatabase();
+
+      // Input Validation
+      const name = document.getElementById("nameInp");
+      const email = document.getElementById("emailInp");
+      const username = document.getElementById("userInp");
+      const pass = document.getElementById("passInp");
+      const submit = document.getElementById("sub_btn");
+
+      function Validation() {
+        let nameregex = /^[a-zA-Z\s]+$/;
+        let emailregex = /^[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$/;
+        let userregex = /^[a-zA-Z0-9]+$/;
+
+        if (!nameregex.test(name.value)) {
+          alert("The name should only contain alphabets");
+          return false;
+        }
+        if (!emailregex.test(email.value)) {
+          alert("Enter a valid email");
+          return false;
+        }
+        if (!userregex.test(username.value)) {
+          alert("The username should be 5 characters long");
+          return false;
+        }
+        return true;
+      }
+
+      // Register user to firebase
+      function register() {
+        if (!Validation()) {
+          return;
+        }
+        const dbRef = ref(db);
+
+        get(child(dbRef, "usersList/" + username.value)).then((snapshot) => {
+          if (snapshot.exists()) {
+            alert("Username already exists");
+          } else {
+            set(ref(db, "usersList/" + username.value), {
+              fullname: name.value,
+              email: email.value,
+              username: username.value,
+              password: encPass(),
+            }).then = (() => {
+              alert("User registered successfully");
+            }).catch((error) => {
+              alert("Error: " + error);
+            });
+          }
+        });
+      }
+      // encryption of the password
+      function encPass() {
+        // password returns a key and a value and only the user can decrypt it.
+        var pass12 = CryptoJS.AES.encrypt(pass.value, pass.value);
+        return pass12.toString();
+      }
+      // Assign the events
+      submit.addEventListener("click", register);
     </script>
   </body>
 </html>
