@@ -143,20 +143,22 @@
               email: email.value,
               username: username.value,
               password: pass.value,
-            }).then = (() => {
-              alert("User registered successfully");
-            }).catch((error) => {
-              alert("Error: " + error);
-            });
+            })
+              .then(() => {
+                alert("User registered successfully");
+              })
+              .catch((error) => {
+                alert("Error: " + error);
+              });
           }
         });
       };
       // encryption of the password
-      function encPass() {
-        // password returns a key and a value and only the user can decrypt it.
-        let pass12 = CryptoJS.AES.encrypt(pass.value, pass.value);
+      const encPass = () => {
+        // password returns a key and a value and only the user can encrypt it.
+        var pass12 = CryptoJS.AES.encrypt(pass.value, pass.value);
         return pass12.toString();
-      }
+      };
       // Assign the events
       submit.addEventListener("click", register);
     </script>

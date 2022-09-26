@@ -93,10 +93,10 @@
         get(child(dbRef, "usersList/" + username.value)).then((snapshot) => {
           if (snapshot.exists()) {
             let dbpass = decPass(snapshot.val().password);
-            if (dbpass == pass.value) {
+            if (dbpass === pass.value) {
               login(snapshot.val());
             } else {
-              alert("Wrong Password");
+              alert("User does not exist");
             }
           } else {
             alert("Username or password is invalid");
@@ -104,15 +104,15 @@
         });
       };
       // decryption of the password
-      function decPass(dbpass) {
+      const decPass = (dbpass) => {
         // password returns a key and a value and only the user can decrypt it.
-        let pass12 = CryptoJS.AES.decrypt(dbpass, pass.value);
+        var pass12 = CryptoJS.AES.decrypt(dbpass, pass.value);
         return pass12.toString(CryptoJS.enc.Utf8);
-      }
+      };
 
       // Login function
-      function login(user) {
-        let keep = document.getElementById("customSwitch1").checked;
+      const login = (user) => {
+        let keep = document.getElementById("flexSwitchCheckChecked").checked;
         if (!keep) {
           // the session only sustains when the user is logged in.
           sessionStorage.setItem("user", JSON.stringify(user));
@@ -123,7 +123,7 @@
           localStorage.setItem("user", JSON.stringify(user));
           window.location = "home.html";
         }
-      }
+      };
 
       // Assign the events
       submit.addEventListener("click", Authentication);

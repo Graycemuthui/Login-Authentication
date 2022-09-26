@@ -47,8 +47,8 @@
               >
                 Dropdown
               </a>
-          <form class="d-flex" role="search">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <form class="form-inline my-2 my-lg-0 " >
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
               <li class="nav-item ">
                 <a class="nav-link" id="userlink" aria-current="page" href=""
                   >Username</a
@@ -62,7 +62,6 @@
         </div>
       </div>
     </nav>
-
     <h3 id="header"></h3>
     <script>
       let userLink = document.getElementById("userlink");
@@ -95,10 +94,10 @@
           userLink.classList.add("btn-primary");
           userLink.href = "index.html";
 
-          userLink.innerHTML = "Login";
-          userLink.classList.replace("nav-link", "btn");
-          userLink.classList.add("btn-success");
-          userLink.href = "#";
+          signOutLink.innerHTML = "Login";
+          signOutLink.classList.replace("nav-link", "btn");
+          signOutLink.classList.add("btn-success");
+          signOutLink.href = "#";
         } else {
           userLink.innerHTML = currentUser.username;
           header.innerHTML = `Welcome ${currentUser.fullname}`;
@@ -109,12 +108,9 @@
           signOutLink.innerHTML = "Sign Out";
           signOutLink.classList.replace("btn", "nav-link");
           signOutLink.classList.add("btn-success");
-          signOutLink.href = "JavaScript:signOut()";
+          signOutLink.href = "javaScript:SignOut()";
         }
       };
-
-       // Assign the events
-      submit.addEventListener("click", register);
     </script>
   </body>
 </html>
