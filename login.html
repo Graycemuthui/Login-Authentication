@@ -93,7 +93,7 @@
         get(child(dbRef, "usersList/" + username.value)).then((snapshot) => {
           if (snapshot.exists()) {
             let dbpass = decPass(snapshot.val().password);
-            if (dbpass === pass.value) {
+            if (dbpass == pass.value) {
               login(snapshot.val());
             } else {
               alert("User does not exist");
