@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Authentication</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="form">
+      <h2>SIGN UP</h2>
+      <div class="input-group flex d-flex justify-content-center mb-3">
+        <input
+          type="text"
+          placeholder="Fullname"
+          id="nameInp"
+          class="form-control mb-3 w-50"
+        />
+      </div>
+      <div class="input-group flex d-flex justify-content-center mb-3">
+        <input
+          type="text"
+          placeholder="Email"
+          id="emailInp"
+          class="form-control mb-3"
+        />
+      </div>
+      <div class="input-group flex d-flex justify-content-center mb-3">
+        <input
+          type="text"
+          placeholder="Username"
+          id="userInp"
+          class="form-control mb-3"
+        />
+      </div>
+      <div class="input-group flex d-flex justify-content-center mb-3">
+        <input
+          type="text"
+          placeholder="Password"
+          id="passInp"
+          class="form-control mb-3"
+        />
+      </div>
+      <button type="button" id="sub_btn" class="btn w-100 btn-primary">
+        Sign Up
+      </button>
+      <a href="login.html" class="link-primary py-1 w-100"
+        >Already have an account</a
+      >
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyATNv1yLtMHppFhbBybh9t5VkFN42qWPBc",
+        authDomain: "login-authentication-5eb8b.firebaseapp.com",
+        databaseURL:
+          "https://login-authentication-5eb8b-default-rtdb.firebaseio.com",
+        projectId: "login-authentication-5eb8b",
+        storageBucket: "login-authentication-5eb8b.appspot.com",
+        messagingSenderId: "1094740287562",
+        appId: "1:1094740287562:web:46a3a6e0a9076f9e2806b3",
+        measurementId: "G-P8Z2FWJ6FT",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      import {
+        getDatabase,
+        ref,
+        set,
+        child,
+        get,
+      } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+
+      const db = getDatabase();
+
+      // Input Validation
+      const name = document.getElementById("nameInp");
+      const email = document.getElementById("emailInp");
+      const username = document.getElementById("userInp");
+      const pass = document.getElementById("passInp");
+      const submit = document.getElementById("sub_btn");
+
+      const isEmptyOrSpaces = (str) => {
+        return str === null || str.match(/^ *$/) !== null;
+      };
+      const Validation = () => {
+        let nameregex = /^[a-zA-Z\s]+$/;
+        let emailregex = /^[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$/;
+        let userregex = /^[a-zA-Z0-9]+$/;
+
+        if (
+          isEmptyOrSpaces(name.value) ||
+          isEmptyOrSpaces(email.value) ||
+          isEmptyOrSpaces(username.value) ||
+          isEmptyOrSpaces(pass.value)
+        ) {
+          alert("Please fill all the fields");
+          return false;
+        }
+
+        if (!nameregex.test(name.value)) {
+          alert("The name should only contain alphabets");
+          return false;
+        }
+        if (!emailregex.test(email.value)) {
+          alert("Enter a valid email");
+          return false;
+        }
+        if (!userregex.test(username.value)) {
+          alert("The username should be 5 characters long");
+          return false;
+        }
+        return true;
+      };
+
+      // Register user to firebase
+      const register = () => {
+        if (!Validation()) {
+          return;
+        }
+        const dbRef = ref(db);
+
+        get(child(dbRef, "usersList/" + username.value)).then((snapshot) => {
+          if (snapshot.exists()) {
+            alert("Username already exists");
+          } else {
+            set(ref(db, "usersList/" + username.value), {
+              fullname: name.value,
+              email: email.value,
+              username: username.value,
+              password: pass.value,
+            })
+              .then(() => {
+                alert("User registered successfully");
+              })
+              .catch((error) => {
+                alert("Error: " + error);
+              });
+          }
+        });
+      };
+      // encryption of the password
+      const encPass = () => {
+        // password returns a key and a value and only the user can encrypt it.
+        var pass12 = CryptoJS.AES.encrypt(pass.value, pass.value);
+        return pass12.toString();
+      };
+      // Assign the events
+      submit.addEventListener("click", register);
+    </script>
+  </body>
+</html>
